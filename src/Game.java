@@ -21,10 +21,9 @@ public class Game
     private Room currentRoom;
         
     /**
-     * Create the game and initialise its internal map.
+     * Create the game and initialize its internal map.
      */
-    public Game() 
-    {
+    public Game() {
         createRooms();
         parser = new Parser();
     }
@@ -32,10 +31,8 @@ public class Game
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
-    {
+    private void createRooms() {
         Room outside, theater, pub, lab, office, secretRoom;
-      
         // create the rooms
         outside = new Room("outside the main entrance of the university");
         theater = new Room("in a lecture theater");
@@ -43,9 +40,8 @@ public class Game
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
         secretRoom = new Room("in Secret Room. UuuuuuUUuu... Scary stuff is happening here. Be aware!");
+        
         // initialise room exits
-        
-        
         outside.setExit("west", pub);
         outside.setExit("east", theater);
         outside.setExit("south", lab);
@@ -54,11 +50,12 @@ public class Game
         lab.setExit("east", office);
         lab.setExit("down", secretRoom);
         
+        secretRoom.setExit("up", lab);
+
         theater.setExit("west", outside);
         
         office.setExit("west", lab);
         
-        secretRoom.setExit("up", lab);
         
         
         
@@ -79,6 +76,7 @@ public class Game
     {            
         printWelcome();
         printLocationInfo();
+        
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
                 
@@ -104,8 +102,10 @@ public class Game
     }
     
     private void printLocationInfo(){
-    System.out.println("You are " + currentRoom.getRoomDescription());
-        System.out.print("Exits: ");
+        //System.out.println("You are " + currentRoom.getRoomDescription());
+        //System.out.println(currentRoom.getExitString());
+        System.out.println(currentRoom.getLongDescription());
+        /*
         if(currentRoom.northExit != null) {
             System.out.print("north ");
         }
@@ -119,6 +119,7 @@ public class Game
             System.out.print("west ");
         }
         System.out.println();
+        */
     }
 
     /**
@@ -176,9 +177,7 @@ public class Game
             System.out.println("Go where?");
             return;
         }
-
         String direction = command.getSecondWord();
-
         // Try to leave current room.
         //Room nextRoom = null;
         Room nextRoom = currentRoom.getExit(direction);
@@ -189,8 +188,11 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
-            System.out.println("You are " + currentRoom.getRoomDescription());
-            System.out.print("Exits: ");
+            //System.out.println("You are " + currentRoom.getRoomDescription());
+            //System.out.print("Exits: ");
+            System.out.println(currentRoom.getLongDescription());
+            
+            /*
             if(currentRoom.northExit != null) {
                 System.out.print("north ");
             }
@@ -204,6 +206,7 @@ public class Game
                 System.out.print("west ");
             }
             System.out.println();
+            */
         }
     }
 

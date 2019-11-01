@@ -35,13 +35,23 @@ public class Room {
      * @param description The room's roomDescription.
      */
     public Room(String description) {
-        this.roomDescription = description;
+        roomDescription = description;
         exits = new HashMap<String, Room>();
     }
 
     /**
+     * Return a long description of this room, of the form: You are in the
+     * kitchen. Exits: north west
+     *
+     * @return A description of the room, including exits.
+     */
+    public String getLongDescription() {
+        return "You are " + roomDescription + ".\n" + getExitString();
+    }
+
+    /**
      * Return the room that is reached if we go from this room in direction
-     * "direction "If there is no room in that direction, return null.
+     * "direction" If there is no room in that direction, return null.
      *
      * @param direction
      * @return
@@ -66,7 +76,7 @@ public class Room {
      * @return A description of the available exits.
      */
     public String getExitString() {
-        String returnString = "Exits:";
+        String returnString = "Available exits:";
         Set<String> keys = exits.keySet();
         for (String exit : keys) {
             returnString += " " + exit;
