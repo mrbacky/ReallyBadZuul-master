@@ -47,7 +47,7 @@ public class CommandWords {
      * @return CommandList;
      */
     public String getCommandList() {
-         String Commandlist = Arrays.toString(validCommands);
-         return Commandlist;
+         
+         return validCommands.toString();
     }
 }
